@@ -49,4 +49,28 @@
     border-color: none;
     box-shadow: none;
   }
+
+  .was-validated .form-check-input:valid:checked, .form-check-input.is-valid:checked {
+    background-color: #0D6EFD;
+    border-color: #0D6EFD;
+  }
+
+  .was-validated .form-check-input:valid, .form-check-input.is-valid {
+    border-color: #0D6EFD;
+  }
+
+  /* line 117, ../../../.rbenv/versions/3.1.2/lib/ruby/gems/3.1.0/gems/bootstrap-5.2.3/assets/stylesheets/bootstrap/mixins/_forms.scss */
+  .was-validated .form-check-input:valid:checked, .form-check-input.is-valid:checked {
+    background-color: #0D6EFD;
+  }
+
+  /* line 121, ../../../.rbenv/versions/3.1.2/lib/ruby/gems/3.1.0/gems/bootstrap-5.2.3/assets/stylesheets/bootstrap/mixins/_forms.scss */
+  .was-validated .form-check-input:valid:focus, .form-check-input.is-valid:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  }
+
+  /* line 125, ../../../.rbenv/versions/3.1.2/lib/ruby/gems/3.1.0/gems/bootstrap-5.2.3/assets/stylesheets/bootstrap/mixins/_forms.scss */
+  .was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
+    color: #0D6EFD;
+  }
 }

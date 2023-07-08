@@ -5,21 +5,39 @@
         <div class="col-2"><%= f.submit class: "btn btn-primary"%></div>
       </div>
     <% end %>
-  <div id="list-tasks" class="mt-3">
+  <div id="tasklist" class="mt-3" data-controller="tasklist">
     <% @tasks.each do |task|%>
       <div class="card-task d-flex justify-contet-start align-items-center">
         <%= simple_form_for(task) do |f| %>
-          <%= f.input :done,
-            label: false,
-            as: :boolean,
-            wrapper_html: { class: "mb-0" }
-          %>
+          <% if task.done %>
+            <%= f.input :done,
+              label: false,
+              as: :boolean,
+              input_html: {data: {action:"change->tasklist#done"}, checked: true},
+              wrapper_html: { class: "mb-0" }
+            %>
+          <% else %>
+            <%= f.input :done,
+              label: false,
+              as: :boolean,
+              input_html: {data: {action:"change->tasklist#done"}},
+              wrapper_html: { class: "mb-0" }
+            %>
+          <% end %>
         <% end %>
         <%= simple_form_for(task, html: {class: "col-10"}) do |f| %>
-          <%= f.input :description,
-            label: false,
-            value: "#{task.description}"
-          %>
+          <% if task.done %>
+            <%= f.input :description,
+              label: false,
+              value: "#{task.description}",
+              input_html: {disabled: true, class: "text-decoration-line-through"}
+            %>
+          <% else %>
+            <%= f.input :description,
+              label: false,
+              value: "#{task.description}"
+            %>
+          <% end %>
         <% end %>
       </div>
     <% end %>
