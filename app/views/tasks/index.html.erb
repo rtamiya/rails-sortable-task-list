@@ -7,9 +7,21 @@
     <% end %>
   <div id="list-tasks" class="mt-3">
     <% @tasks.each do |task|%>
-      <%= simple_form_for(task) do |f| %>
-        <%= f.input :done, label: "#{task.description}", as: :boolean, wrapper_html: { class: "card-task" } %>
-      <% end %>
+      <div class="card-task d-flex justify-contet-start align-items-center">
+        <%= simple_form_for(task) do |f| %>
+          <%= f.input :done,
+            label: false,
+            as: :boolean,
+            wrapper_html: { class: "mb-0" }
+          %>
+        <% end %>
+        <%= simple_form_for(task, html: {class: "col-10"}) do |f| %>
+          <%= f.input :description,
+            label: false,
+            value: "#{task.description}"
+          %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>
