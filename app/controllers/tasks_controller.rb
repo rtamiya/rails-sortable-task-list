@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_tasks, only: %i[index create update]
+
   def index
     @task = Task.new
   end

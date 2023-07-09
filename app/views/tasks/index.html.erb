@@ -6,40 +6,45 @@
       </div>
     <% end %>
   <div id="tasklist" class="mt-3" data-controller="tasklist">
-    <% @tasks.each do |task|%>
-      <div class="card-task d-flex justify-contet-start align-items-center">
-        <%= simple_form_for(task) do |f| %>
-          <% if task.done %>
-            <%= f.input :done,
-              label: false,
-              as: :boolean,
-              input_html: {data: {action:"change->tasklist#done"}, checked: true},
-              wrapper_html: { class: "mb-0" }
-            %>
-          <% else %>
-            <%= f.input :done,
-              label: false,
-              as: :boolean,
-              input_html: {data: {action:"change->tasklist#done"}},
-              wrapper_html: { class: "mb-0" }
-            %>
+    <ul data-controller="sortable" data-sortable-animation-value="150">
+      <% @tasks.each do |task|%>
+        <li class="card-task d-flex justify-contet-start align-items-center"
+            data-action="dragend->tasklist#positionUpdate"
+        >
+          <%= simple_form_for(task) do |f| %>
+            <% if task.done %>
+              <%= f.input :done,
+                label: false,
+                as: :boolean,
+                input_html: {data: {action:"change->tasklist#done"}, checked: true},
+                wrapper_html: { class: "mb-0" }
+              %>
+            <% else %>
+              <%= f.input :done,
+                label: false,
+                as: :boolean,
+                input_html: {data: {action:"change->tasklist#done"}},
+                wrapper_html: { class: "mb-0" }
+              %>
+            <% end %>
           <% end %>
-        <% end %>
-        <%= simple_form_for(task, html: {class: "col-10"}) do |f| %>
-          <% if task.done %>
-            <%= f.input :description,
-              label: false,
-              value: "#{task.description}",
-              input_html: {disabled: true, class: "text-decoration-line-through"}
-            %>
-          <% else %>
-            <%= f.input :description,
-              label: false,
-              value: "#{task.description}"
-            %>
+          <%= simple_form_for(task, html: {class: "col-10"}) do |f| %>
+            <% if task.done %>
+              <%= f.input :description,
+                label: false,
+                value: "#{task.description}",
+                input_html: {disabled: true, class: "text-decoration-line-through"}
+              %>
+            <% else %>
+              <%= f.input :description,
+                label: false,
+                value: "#{task.description}"
+              %>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-    <% end %>
+          <div id="task-id" data-tasklist-target="taskId"><%= task.id %></div>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>
