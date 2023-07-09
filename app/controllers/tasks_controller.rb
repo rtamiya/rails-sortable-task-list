@@ -26,6 +26,15 @@ class TasksController < ApplicationController
     end
   end
 
+  def update_all
+    ids = params[:ids].split(",").map(&:to_i)
+    ids.each_with_index do |id, index|
+      task = Task.find(id)
+      task.update(position: index)
+    end
+    redirect_to tasks_path
+  end
+
   private
 
   def task_params
@@ -33,6 +42,6 @@ class TasksController < ApplicationController
   end
 
   def set_tasks
-    @tasks = Task.all.order(id: 'DESC')
+    @tasks = Task.all.order(position: 'ASC')
   end
 end

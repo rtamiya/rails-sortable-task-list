@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="tasklist"
 export default class extends Controller {
-  static targets = ["taskId"]
+  static targets = ["taskId", "ids"]
 
   connect() {
     console.log("connected :-)")
@@ -14,6 +14,9 @@ export default class extends Controller {
 
   positionUpdate() {
     console.log("hello, you drag'n droped!")
-    console.log(this.taskIdTargets.map( div => div.innerText ))
+    const ids = this.taskIdTargets.map( div => div.innerText )
+    console.log(ids)
+    this.idsTarget.value = ids
+    this.idsTarget.closest("form").submit()
   }
 }

@@ -11,6 +11,13 @@ p "Clearing DB..."
 Task.destroy_all
 
 p "Creating Tasks..."
+
+pos = 0
 15.times do
-  Task.create!(description: Faker::Quotes::Shakespeare.unique.hamlet_quote, done: false)
+  task = Task.create!(description: Faker::Quotes::Shakespeare.unique.hamlet_quote, done: false)
+  p pos
+  task.update!(position: pos)
+  pos += 1
 end
+
+p "finish!"
