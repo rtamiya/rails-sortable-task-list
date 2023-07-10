@@ -1,16 +1,20 @@
 <div class="container">
+  <h1 id="title">Sortable tasklist</h1>
+  <div class="form-create-task">
     <%= simple_form_for(@task, html: {class: "form-inline"}) do |f| %>
       <div class="row mt-5 justify-content-around align-items-start">
         <div class="col-9"><%= f.input :description, label: false%></div>
-        <div class="col-2"><%= f.submit class: "btn btn-primary"%></div>
+        <div class="col-2"><%= f.submit class: "btn", id: "btn-create-task"%></div>
       </div>
     <% end %>
+  </div>
   <div id="tasklist" class="mt-3" data-controller="tasklist">
     <ul data-controller="sortable" data-sortable-animation-value="150">
       <% @tasks.each do |task|%>
         <li class="card-task d-flex justify-contet-start align-items-center"
             data-action="dragend->tasklist#positionUpdate"
         >
+          <div class="mx-3"><i class="fas fa-sort" style="color: #f0f0f0;"></i></div>
           <%= simple_form_for(task) do |f| %>
             <% if task.done %>
               <%= f.input :done,
@@ -33,16 +37,17 @@
               <%= f.input :description,
                 label: false,
                 value: "#{task.description}",
-                input_html: {disabled: true, class: "text-decoration-line-through"}
+                input_html: {disabled: true, class: "text-decoration-line-through form-task-description"}
               %>
             <% else %>
               <%= f.input :description,
                 label: false,
-                value: "#{task.description}"
+                value: "#{task.description}",
+                input_html: {class: "form-task-description"}
               %>
             <% end %>
           <% end %>
-          <div id="task-id" data-tasklist-target="taskId"><%= task.id %></div>
+          <div hidden id="task-id" data-tasklist-target="taskId"><%= task.id %></div>
         </li>
       <% end %>
     </ul>

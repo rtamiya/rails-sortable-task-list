@@ -7,6 +7,10 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    Task.all.each do |task|
+      task.update(position: task.position += 1)
+    end
+    @task.position = 0
     @task.done = false
     if @task.save
       redirect_to tasks_path
