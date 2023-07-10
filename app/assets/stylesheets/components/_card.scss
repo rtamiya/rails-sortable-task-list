@@ -11,12 +11,12 @@
     margin-bottom: 0 !important;
   }
 
-.form-check {
-    display: block;
-    min-height: 1.5rem;
-    padding-left: 1.5em;
-    margin-bottom: 0;
-}
+  .form-check {
+      display: block;
+      min-height: 1.5rem;
+      padding-left: 1.5em;
+      margin-bottom: 0;
+  }
 
   .form-control {
     display: block;
@@ -25,8 +25,8 @@
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #0E0000;
-    background-color: #F4F4F4;
+    color: #F0F0F0;
+    background-color: $dark-gray;
     background-clip: padding-box;
     border: none;
     -webkit-appearance: none;
@@ -34,6 +34,14 @@
     appearance: none;
     /* border-radius: 2px; */
     /* transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; */
+  }
+
+  .form-control:focus {
+    color: #F0F0F0;
+    background-color: $dark-gray;
+    border-color: #F0F0F0;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(240, 240, 240, 0.25);
   }
 
   .was-validated .form-control:valid, .form-control.is-valid {
@@ -73,4 +81,9 @@
   .was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
     color: #0D6EFD;
   }
+}
+
+.card-task:hover{
+  box-shadow: white 0 0 6px;
+  transition: .5s;
 }
