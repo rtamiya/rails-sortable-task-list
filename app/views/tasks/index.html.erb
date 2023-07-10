@@ -2,7 +2,7 @@
   <h1 id="title">Sortable tasklist</h1>
   <div class="form-create-task">
     <%= simple_form_for(@task, html: {class: "form-inline"}) do |f| %>
-      <div class="row mt-5 justify-content-around align-items-start">
+      <div class="row mt-5 justify-content-center align-items-start">
         <div class="col-9"><%= f.input :description, label: false%></div>
         <div class="col-2"><%= f.submit class: "btn", id: "btn-create-task"%></div>
       </div>
@@ -11,48 +11,55 @@
   <div id="tasklist" class="mt-3" data-controller="tasklist">
     <ul data-controller="sortable" data-sortable-animation-value="150">
       <% @tasks.each do |task|%>
-        <li class="card-task d-flex justify-contet-start align-items-center"
-            data-action="dragend->tasklist#positionUpdate"
+        <li class="card-task d-flex justify-contet-between align-items-center"
+          data-action="dragend->tasklist#positionUpdate"
         >
-          <div class="mx-3"><i class="fas fa-sort" style="color: #f0f0f0;"></i></div>
-          <%= simple_form_for(task) do |f| %>
-            <% if task.done %>
-              <%= f.input :done,
-                label: false,
-                as: :boolean,
-                input_html: {data: {action:"change->tasklist#done"}, checked: true},
-                wrapper_html: { class: "mb-0" }
-              %>
-            <% else %>
-              <%= f.input :done,
-                label: false,
-                as: :boolean,
-                input_html: {data: {action:"change->tasklist#done"}},
-                wrapper_html: { class: "mb-0" }
-              %>
+          <div class="forms-on-card d-flex justify-contet-start align-items-center col-10">
+            <i class="fa-solid fa-grip-vertical me-4" style="color: #f0f0f0;"></i>
+            <%= simple_form_for(task) do |f| %>
+              <% if task.done %>
+                <%= f.input :done,
+                  label: false,
+                  as: :boolean,
+                  input_html: {data: {action:"change->tasklist#done"}, checked: true},
+                  wrapper_html: { class: "mb-0" }
+                %>
+              <% else %>
+                <%= f.input :done,
+                  label: false,
+                  as: :boolean,
+                  input_html: {data: {action:"change->tasklist#done"}},
+                  wrapper_html: { class: "mb-0" }
+                %>
+              <% end %>
             <% end %>
-          <% end %>
-          <%= simple_form_for(task, html: {class: "col-10"}) do |f| %>
-            <% if task.done %>
-              <%= f.input :description,
-                label: false,
-                value: "#{task.description}",
-                input_html: {disabled: true, class: "text-decoration-line-through form-task-description"}
-              %>
-            <% else %>
-              <%= f.input :description,
-                label: false,
-                value: "#{task.description}",
-                input_html: {class: "form-task-description"}
-              %>
+            <%= simple_form_for(task, html: {class: "col-10"}) do |f| %>
+              <% if task.done %>
+                <%= f.input :description,
+                  label: false,
+                  value: "#{task.description}",
+                  input_html: {disabled: true, class: "text-decoration-line-through form-task-description"}
+                %>
+              <% else %>
+                <%= f.input :description,
+                  label: false,
+                  value: "#{task.description}",
+                  input_html: {class: "form-task-description"}
+                %>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
+          <div class="icons col-2 text-end p-1">
+            <%= link_to task_path(task), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+                <i class="fa-solid fa-trash" style="color: #f0f0f0;"></i>
+            <% end %>
+          </div>
           <div hidden id="task-id" data-tasklist-target="taskId"><%= task.id %></div>
         </li>
       <% end %>
     </ul>
-    <%= form_with url: tasks_path, method: "patch" do |f| %>
-      <%= f.hidden_field :ids, data: {tasklist_target: "ids"} %>
-    <% end %>
+  <%= form_with url: tasks_path, method: "patch" do |f| %>
+    <%= f.hidden_field :ids, data: {tasklist_target: "ids"} %>
+  <% end %>
   </div>
 </div>
