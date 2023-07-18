@@ -1,0 +1,5 @@
+meta_name: "Sortable tasklist"
+meta_title: "Sortable tasklist - list up and sort your tasks!"
+meta_description: "You can create, edit, sort, and delete your tasks with this web app."
+meta_image: "meta_image.png" # should exist in `app/assets/images/`
+twitter_account: "@your_twitter_account"   # required for Twitter Cards
