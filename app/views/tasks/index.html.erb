@@ -9,13 +9,13 @@
     <% end %>
   </div>
   <div id="tasklist" class="mt-3" data-controller="tasklist">
-    <ul data-controller="sortable" data-sortable-animation-value="150">
+    <ul data-controller="sortable" data-sortable-animation-value="150" data-sortable-handle-value=".handle">
       <% @tasks.each do |task|%>
         <li class="card-task d-flex justify-contet-between align-items-center"
           data-action="dragend->tasklist#positionUpdate"
         >
           <div class="forms-on-card d-flex justify-contet-start align-items-center col-10">
-            <i class="fa-solid fa-grip-vertical me-4" style="color: #f0f0f0;"></i>
+            <i class="fa-solid fa-grip-vertical me-4 handle" style="color: #f0f0f0;"></i>
             <%= simple_form_for(task) do |f| %>
               <% if task.done %>
                 <%= f.input :done,
